@@ -2,3 +2,5 @@
 .vscode
 *.pdf
 __MACOSX
+*.zip
+*.rar
