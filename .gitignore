@@ -5,6 +5,6 @@
 __MACOSX
 *.zip
 *.rar
-./collègues
-./examents
-./TP
+*/collègues
+*/examents
+*/TP
