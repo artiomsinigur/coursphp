@@ -76,14 +76,9 @@ if(isset($_POST['bouton'])) {
     }
 }
 
-if(isset($_POST['nom'])) {
-    echo 'vrais';
-} else {
-    echo 'faux';
-}
 
 echo '<pre>';
-var_dump($_POST);
+var_dump($aErreurs);
 echo '</pre>';
 ?>
 
