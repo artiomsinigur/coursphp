@@ -32,13 +32,12 @@
 
 //var_dump($_POST);
 var_dump(isset($_POST));
-var_dump(empty($_POST['totolemagicien']));
+var_dump(empty($_POST));
 
 $aErreurs = array();
 $bValide = false;
 
 if(!empty($_POST)){
-
 
    // echo 'avec post';
 
