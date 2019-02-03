@@ -16,7 +16,7 @@
 		$page = $_GET['page'];
 	}
 
-	$bValide = 0;
+	$bValide = false;
 	switch ($page) {
 		case 'socio':
 			$nom = '';

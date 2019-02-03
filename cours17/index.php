@@ -1,7 +1,8 @@
 <?php
 	include 'fonctions.php';
 
-	$aCouleurs = array(	"gris" => array("nom"=>"Gris", "code" => "#444444"), 
+	$aCouleurs = array(	
+						"gris" => array("nom"=>"Gris", "code" => "#444444"), 
 						"rouge" => array("nom"=>"Rouge pure", "code" => "#FF0000"), 
 						"vert" => array("nom"=>"Vert émeraude", "code" => "#00FF00"), 
 						"bleu" => array("nom"=>"bleu pure", "code" => "#0000FF"), 
