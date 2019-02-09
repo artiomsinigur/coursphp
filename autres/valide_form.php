@@ -41,4 +41,23 @@ foreach ($$_POST as $key => $value) {
 if (count($errors)) {
   // Visualisé les erreurs de la validation
 }
+
+// Validation de format du fichier
+if (isset($_FILES['avatar'])) {
+  $finfo = finfo_open(FILEINFO_MIME_TYPE);
+
+  $file_name = $_FILES['avatar']['tmp_name'];
+  $file_size = $_FILES['avatar']['size'];
+
+  $file_type = finfo_file($finfo, $file_name);
+
+  if ($file_type !== 'image/gif') {
+    print('Téléverser l\'image en format gif');
+  }
+
+  if ($file_size > 200000) {
+    print('La taille maximale du fichier est de 200kb');
+  }
+}
+
 ?>
