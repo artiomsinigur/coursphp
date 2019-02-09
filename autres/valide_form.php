@@ -22,4 +22,23 @@ foreach ($required_fields as $field) {
 if (count($errors)) {
   // Visualisé les erreurs de la validation
 }
+
+// Validation des champs au format requis
+$errors = [];
+
+foreach ($$_POST as $key => $value) {
+  if ($key == 'email') {
+    if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+      $errors[$key] = 'Entrez un email valdie';
+    }
+  } elseif ($key == 'ip') {
+    if (!filter_var($value, FILTER_VALIDATE_IP)) {
+      $errors[$key] = 'Entrez un IP valide';
+    }
+  }
+}
+
+if (count($errors)) {
+  // Visualisé les erreurs de la validation
+}
 ?>
