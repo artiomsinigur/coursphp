@@ -7,3 +7,19 @@ $email = $_POST['email'] ?? '';
   <input type="text" name="login" value="<?=$login?>">
   <input type="email" name="email" value="<?=$email?>">
 </form>
+
+<?php
+// Validation de form
+$required_fields = ['email', 'password', 'login'];
+$errors = [];
+
+foreach ($required_fields as $field) {
+  if (empty($_POST[$field])) {
+    $errors[$field] = 'Le champs est vide';
+  }
+}
+
+if (count($errors)) {
+  // Visualisé les erreurs de la validation
+}
+?>
