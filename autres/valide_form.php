@@ -35,7 +35,7 @@ if (count($errors)) {
 // Validation des champs au format requis ==================//
 $errors = [];
 
-foreach ($$_POST as $key => $value) {
+foreach ($_POST as $key => $value) {
   if ($key == 'email') {
     if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
       $errors[$key] = 'Entrez un email valdie';
@@ -72,7 +72,7 @@ if (isset($_FILES['avatar'])) {
 
 
 // Assembler le tout ensemble ==================//
-if ($_SERVER['REQUEST_METHOD' == 'POST']) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $gif = $_POST;
 
   // Les champs exigés
