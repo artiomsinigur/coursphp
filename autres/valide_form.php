@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($file_type !== 'image/gif') {
       $errors[] = 'Téléversez une image avec en bonne formate GIF';
     } else {
-        move_uploaded_file($tmp_name, 'uploads/', $path);
+        move_uploaded_file($tmp_name, 'uploads/'. $path);
         $gif['path'] = $path;
     }
   } else {

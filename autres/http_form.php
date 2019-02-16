@@ -14,3 +14,15 @@ if (isset($_GET['tab'])) {
 
 // La forme courte de code ci-dessus depuis PHP 7
 $tab = $_GET['tab'] ?? 'popular';
+
+// Afficher les éléments d'un tableau avec while
+$count_items = count($categories)-1;
+$cur_item = 1;
+?>
+<ul class="nav__list container">
+<?php while ($count_items >= $cur_item): ?>
+    <li class="nav__item">
+        <a href="all-lots.html"><?=$categories[$cur_item]?></a>
+    </li>
+<?php $cur_item++?>
+<?php endwhile;?>
