@@ -23,7 +23,7 @@ $errors = [];
 
 foreach ($required_fields as $field) {
   if (empty($_POST[$field])) {
-    $errors[$field] = 'Le champs est vide';
+    $errors[$field] = 'Le champ est vide';
   }
 }
 
