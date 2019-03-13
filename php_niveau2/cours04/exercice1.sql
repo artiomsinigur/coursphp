@@ -14,8 +14,10 @@ CREATE TABLE voiture (
 
 CREATE TABLE achat (
     prixAchat DECIMAL(6,2) UNSIGNED NOT NULL,
-    dateAchat DATE NOT NULL PRIMARY KEY,
-    idVoiture SMALLINT UNSIGNED PRIMARY KEY,
-    idProprietaire SMALLINT UNSIGNED PRIMARY KEY,
-    FOREIGN KEY(idProprietaire, idVoiture) REFERENCES proprietaire(id), voiture(id) ON DELETE CASCADE
+    dateAchat DATE NOT NULL,
+    idVoiture SMALLINT UNSIGNED,
+    idProprietaire SMALLINT UNSIGNED,
+    FOREIGN KEY (idProprietaire) REFERENCES proprietaire(id),    
+    FOREIGN KEY (idVoiture) REFERENCES voiture(id),
+    PRIMARY KEY (dateAchat, idVoiture, idProprietaire)
 );
