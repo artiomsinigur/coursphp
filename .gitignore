@@ -1,11 +1,6 @@
 *.DS_Store
 .vscode
 .vs
-*.pdf
-*.rtf
-*.png
-*.jpg
-*.jpeg
 __MACOSX
 *.zip
 *.rar

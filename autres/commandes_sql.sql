@@ -117,14 +117,25 @@ SELECT * FROM nomTable ORDER BY champ2 DESC, champ2 ASC
 SELECT COUNT(*) FROM nomTable
 
 -- Nommer(as nouveauNomChamp) le champ à la volé afin de le récupérer plus facilement en PHP
-SELECT COUNT(*) as nouveauChamp FROM nomTable
+SELECT COUNT(*) AS nouveauChamp FROM nomTable
 
 -- Grouper le résultat par le nom de champ
-SELECT COUNT(*) as nouveauChamp, pourCeChamp FROM nomTable GROUP BY nomChamp
--- Ex. SELECT COUNT(ville) as nombreVilles, ville FROM utilisateur GROUP BY ville
+SELECT COUNT(*) AS nouveauChamp, pourCeChamp FROM nomTable GROUP BY nomChamp
+-- Ex. SELECT COUNT(ville) AS nombreVilles, ville FROM utilisateur GROUP BY ville
 
 -- MAX(), MIN(), AVG() Sélectionner la valeur maximal, minimal et average
 SELECT MAX(nomChamp) from nomTable
+
+-- Exemple
+-- Obtenir la marque, le modèle et l'âge de toutes les voitures
+SELECT marque, modele, 2019 - annee AS ageVoiture FROM voiture;
+-- Obtenir les marques distinctes qui se trouvent dans la table voiture;
+SELECT DISTINCT marque FROM voiture;
+-- Obtenir la désignation (marque modele annee dans une string) de toutes les voitures
+SELECT CONCAT(marque, " ", modele, " - ", annee) AS designation FROM voiture;
+-- Obtenir toutes les voitures dont l'année est entre 1990 et 2010
+SELECT * FROM voiture WHERE annee >= 1990 AND annee <= 2010
+SELECT * FROM voiture WHERE annee BETWEEN 1990 AND 2010
 
 
 --==================//
@@ -139,7 +150,7 @@ SELECT *, CEIL(1.3) FROM nomTable
 -- Référence: https://dev.mysql.com/doc/refman/8.0/en/string-functions.html
 --==================//
 -- Concatener des champs
-SELECT *, CONCAT(champ1, ' ', champ2) as nouveauChamp FROM nomTable
+SELECT *, CONCAT(champ1, ' ', champ2) AS nouveauChamp FROM nomTable
 
 -- Récuperer la taille d'une chaine de caractère
 SELECT *, LENGTH(champ) FROM nomTable
@@ -204,8 +215,8 @@ SELECT * FROM nomTable WHERE YEAR(nomChamp) > 1980
 -- Récuperer tous les utilisateurs par année, par mois et les grouper
 SELECT
         COUNT(*),
-        YEAR(nomChamp) as année,
-        MONTH(nomChamp) as mois
+        YEAR(nomChamp) AS année,
+        MONTH(nomChamp) AS mois
 FROM nomTable
 GROUP BY
         YEAR(nomChamp),
