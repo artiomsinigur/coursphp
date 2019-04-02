@@ -35,19 +35,16 @@ AND equipe.nom = "Canadiens"
 
 -- équivalent avec la syntaxe JOIN
 SELECT joueur.id, joueur.nom, prenom, idEquipe, equipe.id, equipe.nom, ville
-FROM joueur
-JOIN equipe
+FROM joueur JOIN equipe
 ON joueur.idEquipe = equipe.id
 
 SELECT joueur.nom, prenom, equipe.nom, ville
-FROM joueur
-JOIN equipe
+FROM joueur JOIN equipe
 ON joueur.idEquipe = equipe.id
 
 -- faire la même chose, mais en ajoutant un filtre pour n'obtenir qu'une seule équipe
 SELECT joueur.nom AS NomJoueur, prenom, equipe.nom AS NomEquipe, ville
-FROM joueur
-JOIN equipe
+FROM joueur JOIN equipe
 ON joueur.idEquipe = equipe.id
 WHERE equipe.nom = "Canadiens"
 

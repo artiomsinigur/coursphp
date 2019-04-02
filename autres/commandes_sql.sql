@@ -61,6 +61,9 @@ INSERT INTO nomTable SET champ1="valeur1", champ2="valeur2"
 --==================//
 -- Supprimer des données
 --==================//
+-- Suppression définitif de table
+DROP DATABASE nomTable
+
 -- Suppression simple
 DELETE FROM nomTable WHERE conditions
 
@@ -137,6 +140,67 @@ SELECT CONCAT(marque, " ", modele, " - ", annee) AS designation FROM voiture;
 SELECT * FROM voiture WHERE annee >= 1990 AND annee <= 2010
 SELECT * FROM voiture WHERE annee BETWEEN 1990 AND 2010
 
+
+--==================//
+-- Reqêtes avec jointures
+--==================//
+-- Requêtes sur deux tables avec WHERE(WHERE utiliser plutôt pour filtrer les données)
+SELECT  joueur.nom AS nomJoueur, 
+        equipe.nom AS nomEquipe
+FROM joueur, equipe
+WHERE joueur.idEquipe = equipe.id
+
+-- En mode raccourcie pour la référence, on met le nouveau nom tout de suite après FROM le nom de la table.
+SELECT  j.nom AS nomJoueur, 
+        e.nom AS nomEquipe
+FROM joueur j, equipe e
+WHERE j.idEquipe = e.id
+
+-- Reqêtes avec JOIN
+-- Il existe plusieurs types de jointure:
+        -- Jointure interne(par default)
+        -- Jointure externe
+        -- Jointure croissée
+        -- Jointure d'union
+        -- Jointure naturelle
+
+-- La jointure interne fait le lien entre deux tables, mais ne retournera 
+-- que les lignes ayant une correspondance entre les deux tables jointes.
+-- équivalent avec la syntaxe WHERE ci-dessus
+SELECT  joueur.nom AS nomJoueur, 
+        equipe.nom AS nomEquipe
+FROM joueur JOIN equipe
+ON joueur.idEquipe = equipe.id
+WHERE equipe.ville = "Montreal"
+
+-- Le jointure externe, elle va ramener aussi les rangées d’une des tables
+-- jointes même si celle-ci ne possède pas de rangée liée vers elle dans l’autre table.
+-- Requêtes sur plusieurs tables 3+
+SELECT * FROM Employe
+JOIN Departement ON Employe.IDDepartement = Departement.Code
+JOIN Bureau ON Departement.IDBureau = Bureau.ID
+
+-- Reqêtes avec OUTER JOIN | LEFT OUTER JOIN | RIGHT OUTER JOIN
+SELECT  joueur.nom AS nomJoueur, 
+        equipe.nom AS nomEquipe
+FROM joueur LEFT OUTER JOIN equipe -- retourne les joueurs sans equipe 
+ON joueur.idEquipe = equipe.id
+
+-- Requêtes sur une table avec une relation récursive
+-- Exemple: Trouver le nom de tous les chevaux ainsi que le nom de leur père
+SELECT 	chevaux.nom AS "Nom cheval",
+        pere.nom AS "Son pere"
+FROM cheval AS pere
+JOIN cheval AS chevaux ON pere.ID = chevaux.IDPere
+
+-- Requêtes sur une table de type N:M
+-- La table resultats est crée à partir de deux autres tables
+SELECT 	c.nom AS "Nom course",
+        c.ville
+FROM course c
+JOIN resultats r ON r.IdCourse = c.ID
+JOIN cheval cv ON r.IdCheval = cv.ID
+WHERE cv.nom = "Starbuck" 
 
 --==================//
 -- Fonctions numériques(ABS(), ROUND(), CEIL() FLOOR(), TRUNCATE(1.12345,2), MOD(8,6))
