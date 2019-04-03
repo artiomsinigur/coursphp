@@ -28,11 +28,13 @@ JOIN Fournisseur f ON p.idFournisseur = f.id
 
 -- b) Afficher le prix moyen des produits de chaque fournisseur ainsi que son ID (sans le join).
 SELECT AVG(prix) AS "Prix moyen", idFournisseur AS "Id fournisseur"
+-- AVG() calcule la moyenne de toutes les lignes d'une colonne et retourne le resultat sur une line
 FROM Produit WHERE idFournisseur
 GROUP BY idFournisseur
+-- Grouper et afficher la moyenne par fournisseur
 
 -- c) Afficher le prix moyen des produits de chaque fournisseur ainsi que le nom du fournisseur
-SELECT AVG(p.prix)AS "Prix moyen", f.nom AS "Id fournisseur"
+SELECT AVG(p.prix) AS "Prix moyen", f.nom AS "Id fournisseur"
 FROM Produit p
 JOIN Fournisseur f ON p.idFournisseur = f.id
 GROUP BY f.nom 
@@ -41,7 +43,7 @@ GROUP BY f.nom
 SELECT f.nom AS "Nom fournisseur", AVG(p.prix) AS PrixMoyen
 FROM Produit p 
 JOIN Fournisseur f ON p.idFournisseur = f.id
-WHERE (SELECT AVG(p.prix) FROM Produit) > 100 -- ou faire similaire avec HAVING PrixMoyen > 100
+WHERE (SELECT AVG(p.prix) FROM Produit) > 100 -- ou faire similaire avec HAVING PrixMoyen > 100 -- Doit être placer après GROUP BY
 GROUP BY f.nom
 
 -- e) Afficher le nom des fournisseurs dont le nombre de produits est plus grand que 1.
@@ -55,10 +57,16 @@ HAVING COUNT(p.code) > 1
 SELECT f.nom AS nomFournisseur
 FROM Produit p
 JOIN (SELECT prix AS prixProduit FROM Produit WHERE prix > 100) AS prixPlusGrand10
+-- 1. Sous requête JOIN () crée une table vituel
+-- 2. Alias "prixPlusGrand10" créé sera le nom de la table 
+-- 3. Attribut "prixProduit" créé sera un attribut de la table 
 ON prixPlusGrand10.prixProduit = p.prix
 JOIN Fournisseur f ON p.idFournisseur = f.id
+-- Lier le deux table pour afficher le nom du fournisseur du premier table
 GROUP BY f.nom
+-- Regrouper le resultat par fournisseur
 HAVING COUNT(*) > 1
+-- La condition HAVING s'applique sur chaque groupe de fournisseur
 
 -- g) Afficher le nom de chaque fournisseur ainsi que le nom et le prix de leur produit le plus dispendieux. C’est pas une facile!!! ;)
 SELECT f.nom AS nomFournisseur, p.nom AS nomProduit, p.prix AS prixProduit
