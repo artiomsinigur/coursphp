@@ -63,3 +63,16 @@ CREATE TABLE conduit (
 	PRIMARY KEY(idCourse, idJockey)
 	#,CONSTRAINT unChevalUneCourse UNIQUE(idCourse, idCheval)
 );
+
+
+
+INSERT INTO chanteurs (nom, prenom) 
+VALUES ('Enya', 'Eithne')
+
+INSERT INTO chansons (titre, numeroPiste) 
+VALUES ('Watermark', 1, 1),
+('Cursum Perficio', 2, 1),
+('On Your Shore ', 3, 1),
+
+INSERT INTO chansons (titre, numeroPiste) 
+VALUES ('Caribbean Blue ', 4),
