@@ -202,6 +202,32 @@ JOIN resultats r ON r.IdCourse = c.ID
 JOIN cheval cv ON r.IdCheval = cv.ID
 WHERE cv.nom = "Starbuck" 
 
+-- Reqêtes avec GROUP BY 
+-- f) Afficher le nom des fournisseurs dont le nombre de produits d'un prix de plus de 100$ est plus grand que 1
+SELECT f.nom AS nomFournisseur
+FROM Produit p
+JOIN (SELECT prix AS prixProduit FROM Produit WHERE prix > 100) AS prixPlusGrand10
+-- 1. Sous requête JOIN () crée une table vituel
+-- 2. Alias "prixPlusGrand10" créé sera le nom de la table 
+-- 3. Attribut "prixProduit" créé sera un attribut de la table 
+ON prixPlusGrand10.prixProduit = p.prix
+JOIN Fournisseur f ON p.idFournisseur = f.id
+-- Lier le deux table pour afficher le nom du fournisseur du premier table
+GROUP BY f.nom
+-- Regrouper le resultat par fournisseur
+HAVING COUNT(*) > 1
+-- La condition HAVING s'applique sur chaque groupe de fournisseur
+
+
+-- Reqêtes avec HAVING ou sous reqête
+-- d) Afficher le nom des fournisseurs dont le prix moyen de leurs produits est plus grand que 100$.
+SELECT f.nom AS "Nom fournisseur", AVG(p.prix) AS PrixMoyen
+FROM Produit p 
+JOIN Fournisseur f ON p.idFournisseur = f.id
+WHERE (SELECT AVG(p.prix) FROM Produit) > 100 -- ou faire similaire avec HAVING PrixMoyen > 100 -- Doit être placer après GROUP BY
+GROUP BY f.nom
+
+
 --==================//
 -- Fonctions numériques(ABS(), ROUND(), CEIL() FLOOR(), TRUNCATE(1.12345,2), MOD(8,6))
 -- Référence: https://dev.mysql.com/doc/refman/8.0/en/numeric-functions.html
