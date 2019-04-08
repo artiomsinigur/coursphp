@@ -77,6 +77,12 @@ GROUP BY idEquipe
 SELECT prenom, nom, salaire
 FROM joueur
 WHERE salaire = (SELECT MAX(salaire) FROM joueur)
+-- Ou avec JOIN mais plus complexe
+SELECT j.nom, j.prenom, j.salaire
+FROM joueur j
+JOIN (SELECT MAX(salaire) AS maxSalaire 
+    FROM joueur) AS maxParJoueur
+    ON maxParJoueur.maxSalaire = j.salaire
 
 -- afficher le joueur le mieux payé de chaque équipe BONNE FAÇON
 SELECT j.prenom, j.nom, equipe.nom, j.salaire
@@ -87,6 +93,13 @@ JOIN
 ON maxEquipe.SalaireMaxEquipe = j.salaire AND maxEquipe.idEquipe = j.idEquipe
 JOIN equipe ON equipe.id = j.idEquipe
 
+-- afficher le joueur le mieux payé de chaque équipe - Version simplifiée
+SELECT j.nom, j.prenom, e.nom AS Equipe, j.salaire
+FROM joueur j
+JOIN equipe e ON j.idEquipe = e.id
+JOIN (SELECT MAX(salaire) AS maxSalaire 
+    FROM joueur GROUP BY idEquipe) AS maxParEquipe
+ON maxParEquipe.maxSalaire = j.salaire
 
 
 
