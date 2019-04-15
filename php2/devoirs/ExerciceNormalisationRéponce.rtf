@@ -1,0 +1,35 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 CenturyGothic;\f1\froman\fcharset0 TimesNewRomanPSMT;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+{\info
+{\author Harvey, Guillaume}}\margl1440\margr1440\vieww18820\viewh15500\viewkind1\viewscale160
+\deftab706
+\pard\tx720\tx1080\tx1440\pardeftab706\ri0\partightenfactor0
+
+\f0\fs20 \cf0 \
+\pard\tx720\tx1080\tx1440\pardeftab706\ri0\partightenfactor0
+
+\f1\fs24 \cf0 D\'e9terminez si les mod\'e8les physiques suivant sont normalis\'e9s. S'ils ne le sont pas, dites quelle forme normale n'est pas respect\'e9e par le mod\'e8le, et pourquoi. Proposez une correction simple pour les erreurs. (L'\'e9toile symbolise que le champ fait partie de la cl\'e9 primaire).\
+\
+a)	Tournois(NomTournoi*, VilleTournoi, PaysTournoi)\
+	GagnantsTournois(NomTournoi*, Ann\'e9eTournoi*, Pr\'e9nomGagnant, NomGagnant, DateNaissanceGagnant)\
+\
+La 3\super \'e8me\nosupersub  forme normale n\'92est pas respect\'e9e parce que DateNaissanceGagnant ne d\'e9pend pas des deux cl\'e9s primaires.\
+\
+b)	Articles(IDArticle*, TitreFrancais, TitreAnglais, TexteFrancais, TexteAnglais)\
+	MotsCles(IDMot*, MotFrancais,  MotAnglais)\
+	Articles_MotsCles(IDMot*, IDArticle*)  \
+\
+La 3\super \'e8me\nosupersub  forme normale est respect\'e9e, tout est beau.\
+\
+c)	ProduitAlimentaire(NomProduit*, Prix, TempsPass\'e9EnVente)\
+\
+La 1\super \'e8re\nosupersub  forme normale n\'92est pas respect\'e9e. TempsPass\'e9EnVente n\'92est pas constant dans le temps. \
+\
+d)	Pi\'e8ce(Num\'e9roPi\'e8ce*, NomPi\'e8ce, NomCompagnieFabrication)\
+	Entrep\'f4t(Num\'e9roEntrep\'f4t*, VilleEntrep\'f4t, RueEntrep\'f4t, Num\'e9roAddresseEntrep\'f4t)\
+	Stockage(Num\'e9roPi\'e8ce*, Num\'e9roEntrep\'f4t*, Quantit\'e9, T\'e9l\'e9phoneEntrep\'f4t)\
+\
+La 2\super \'e8me\nosupersub  forme normale n\'92est pas respect\'e9e parce que T\'e9l\'e9phoneEntrep\'f4t ne d\'e9pend que d\'92une partie de la cl\'e9 primaire compos\'e9e de Num\'e9roPi\'e8ce et Num\'e9roEntrep\'f4t. T\'e9l\'e9phoneEntrep\'f4t ne d\'e9pend que de Num\'e9roEntrep\'f4t et devrait donc se retrouver dans la table Entrep\'f4t.\
+}
