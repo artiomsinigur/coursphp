@@ -16,7 +16,7 @@ DROP DATABASE nom
 -- Créer une table
 USE nomBaseDeDonnées; -- Activer la table
 CREATE TABLE nomTable(
-        id               Int  Auto_increment  NOT NULL ,
+        id               Int Auto_increment PRIMARY KEY,
         nom              Varchar (50) NOT NULL,
         email            Varchar (250) NOT NULL,
         password         Varchar (65) NOT NULL,
