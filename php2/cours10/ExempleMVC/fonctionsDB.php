@@ -17,6 +17,8 @@
 
     $connexion = connectDB();
 
+
+
     function GetAllEquipes()
     {
         global $connexion;
@@ -26,6 +28,8 @@
         
         return $resultat;
     }
+
+
 
     function GetAllJoueurs()
     {
@@ -53,6 +57,8 @@
         
         return $resultat;
     }
+
+    
 
     function GetEquipeByID($id)
     {

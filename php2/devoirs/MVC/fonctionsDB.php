@@ -6,7 +6,7 @@
 
     function connectDB()
     {
-        $c = mysqli_connect("localhost", "root", "", "liqueJointures");
+        $c = mysqli_connect("localhost", "root", "", "ligueJointures");
         
         if(!$c)
             trigger_error("Erreur de connexion... " . mysqli_connect_error());
@@ -83,6 +83,16 @@
         $requete = "INSERT INTO equipe(nom, ville) VALUES('$nom', '$ville')";
         $resultat = mysqli_query($connexion, $requete);
         
+        return $resultat;
+    }
+
+    // Supprrimer un joueur
+    function SupprimeJoueur($idJoueur) {
+        global $connexion;
+
+        $requete = "DELETE FROM joueur WHERE id = $idJoueur";
+        $resultat = mysqli_query($connexion, $requete);
+
         return $resultat;
     }
 ?>

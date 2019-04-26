@@ -80,6 +80,14 @@
                 header("Location: index.php");
             }
             break;
+        case "supprimerJoueur":
+            $donnees = SupprimeJoueur($_GET["idJoueur"]);
+            require_once("vues/ListeJoueurs.php");
+            break;
+        case "FormAjoutJoueur":
+            $donnes = GetAllEquipes();
+            require_once("vues/AjouteJoueur.php");
+            break;
     }
 
     function afficheListeEquipes()

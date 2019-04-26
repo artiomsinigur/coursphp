@@ -1,3 +1,10 @@
+<?php
+    // if (isset($_GET["codeEtudiant"])) {
+    //     $codeEtudiant = $_GET["codeEtudiant"];
+    // } else {
+    //     header("Location: listeCours.php");
+    // }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

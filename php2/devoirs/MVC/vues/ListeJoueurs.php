@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <html>
     <head>
         <meta charset='utf-8'>
@@ -16,10 +20,12 @@
                 echo "<td>" . $rangee["nomJoueur"] . "</td>";
                 echo "<td>" . $rangee["nomEquipe"] . "</td>";   
                 echo "<td>" . $rangee["ville"] . "</td>";
+                echo "<td><a href='index.php?action=supprimerJoueur&idJoueur=" . $rangee["idJoueur"] . "'>Supprimer le joueur" . "</a></td>";
                 echo "</tr>";
             }
-        ?>            
+        ?>
         </table>
         <a href="index.php?action=Accueil">Retourner à l'accueil</a>
+        <a href="index.php?action=FormAjoutJoueur">Ajouter un joueur</a>
     </body>
 </html>
