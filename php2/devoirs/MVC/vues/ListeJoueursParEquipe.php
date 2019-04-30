@@ -1,10 +1,10 @@
 <?php
     $nom = "";
     $ville = "";
-    if($rangeeEquipe = mysqli_fetch_assoc($donneesEquipe))
+    if($donneesEquipe)
     {
-        $nom = $rangeeEquipe["nom"];
-        $ville = $rangeeEquipe["ville"];
+        $nom = $donneesEquipe["nom"];
+        $ville = $donneesEquipe["ville"];
     }
     else
     {
@@ -22,7 +22,7 @@
             <tr><th>ID</th><th>Prénom</th><th>Nom</th></tr>
         <?php
             //affichage dynamique des équipes
-            while($rangee = mysqli_fetch_assoc($donneesJoueurs))
+            foreach($donneesJoueurs as $rangee)
             {
                 echo "<tr>";
                 echo "<td>" . $rangee["id"] . "</td>";

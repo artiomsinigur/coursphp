@@ -8,6 +8,17 @@ $email = $_POST['email'] ?? '';
   <input type="email" name="email" value="<?=$email?>">
 </form>
 
+<?php
+// Pour la balise option
+$selected = $row["id"] == $_POST["value"] ? "selected" : "";
+$anOption = "<option value='" . $row["id"] . "' $selected>" . $text . "</option>";
+?>
+
+<!-- Ou -->
+<?php if (isset($_POST['category'])): ?>
+  <?php echo ($key == $_POST['category'] ? 'selected' : '')?>
+<?php endif;?>>
+
 
 <?php
 // Apliquer un class d\'erreur ===================//

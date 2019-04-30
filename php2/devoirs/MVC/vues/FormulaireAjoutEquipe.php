@@ -1,11 +1,8 @@
 <?php
-    $nom = "";
-    $ville = "";
-    if(isset($_POST["nom"]))
-        $nom = $_POST["nom"];
-
-    if(isset($_POST["ville"]))
-        $ville = $_POST["ville"];
+    // $nom = "";
+    // $ville = "";
+    $nom = $_POST["nom"] ?? "";
+    $ville = $_POST["ville"] ?? "";
 ?>
 <html>
     <head>

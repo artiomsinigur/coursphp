@@ -1,21 +1,21 @@
 <?php
+
+    function vd(){
+        foreach (func_get_args() as $arg) {
+            var_dump($arg);
+        }
+        die();
+    }
+    
     /*
     *
         index.php est le CONTRÔLEUR de notre application "MVC-lite". TOUTES les
         requêtes vers notre application vont passer par ici. Le coeur du contrôleur est sa structure décisionnelle qui traite un paramètre que l'on nommera ACTION. C'est la valeur de ce paramètre qui déterminera les actions que posera le contrôleur.
     
     */
-    
     //1. Recevoir le paramètre action
-    if(isset($_REQUEST["action"]))
-    {
-        $action = $_REQUEST["action"];
-    }
-    else
-    {
-        //action par défaut
-        $action = "Accueil";
-    }
+    $action = $_REQUEST["action"] ?? "Accueil";
+
 
     //inclure le modèle
     require_once("fonctionsDB.php");
@@ -27,6 +27,7 @@
             break;
         case "ListeEquipes":
             afficheListeEquipes();
+            require_once("vues/ListeEquipes.php");
             break;
         case "ListeJoueurs":
             //afficher la liste des joueurs
@@ -80,16 +81,38 @@
                 header("Location: index.php");
             }
             break;
+        case "supprimerEquipe":
+            $donnees = SupprimerEquipe($_GET["idEquipe"]);
+            header("Location:index.php?action=ListeEquipes");
+            break;
         case "supprimerJoueur":
             $donnees = SupprimeJoueur($_GET["idJoueur"]);
-            require_once("vues/ListeJoueurs.php");
+            header("Location:index.php?action=ListeJoueurs");
             break;
         case "FormAjoutJoueur":
-            $donnes = GetAllEquipes();
-            require_once("vues/AjouteJoueur.php");
+            $donnees = GetAllEquipes();
+            require_once("vues/FormAjoutJoueur.php");
             break;
-    }
+        case "AjoutJoueur":
+            $required_fields = ['nom', 'prenom'];
+            $erreurs = "";
 
+            foreach($required_fields as $field) {
+                if (empty(trim($_POST[$field])) ) {
+                    $erreurs = "Veuillez remplir les deux champs correctement.";
+                    $donnees = GetAllEquipes();
+                    require_once("vues/FormAjoutJoueur.php");
+                    // header("Location: index.php?action=FormAjoutJoueur");
+                }                
+            }
+            if ($erreurs == "") {
+                InsereJoueur($_POST["nom"], $_POST["prenom"], $_POST["idEquipe"]);
+                $donnees = GetAllJoueurs();
+                // require_once("vues/ListeJoueurs.php");
+                header("Location: index.php?action=ListeJoueurs");
+            }
+    }
+        var_dump($_POST);
     function afficheListeEquipes()
     {
         //afficher la liste des équipes

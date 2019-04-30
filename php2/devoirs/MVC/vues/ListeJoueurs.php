@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <html>
     <head>
         <meta charset='utf-8'>
@@ -12,8 +8,8 @@
         <table>
             <tr><th>Prénom</th><th>Nom</th><th>Équipe</th><th>Ville</th></tr>
         <?php
-            //affichage dynamique des équipes
-            while($rangee = mysqli_fetch_assoc($donnees))
+            // affichage dynamique des équipes
+            foreach($donnees as $rangee)
             {
                 echo "<tr>";
                 echo "<td>" . $rangee["prenom"] . "</td>";

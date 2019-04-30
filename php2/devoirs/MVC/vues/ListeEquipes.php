@@ -6,14 +6,21 @@
     <body>
         <h1>Liste des équipes</h1>
         <ul>
+        <table>
+            <tr>
+                <th>Nom équipe</th>
+                <th>Ville</th>
+            </tr>
         <?php
-            //affichage dynamique des équipes
-            while($rangee = mysqli_fetch_assoc($donnees))
-            {
-                echo "<li><a href='index.php?action=ListeJoueursParEquipe&idE=" . $rangee["id"] . "'>" . $rangee["nom"] . " de " . $rangee["ville"] . "</a></li>";   
+            foreach($donnees as $row) {
+                echo "<tr>";
+                echo "<td><a href='index.php?action=ListeJoueursParEquipe&idE=" . $row["id"] . "'>" . $row["nom"] . "</a></td>";
+                echo "<td>" . $row["ville"] . "</td>";
+                echo "<td><a href='index.php?action=supprimerEquipe&idEquipe=" . $row["id"] . "'>" . "Supprimer l'équipe</a></td>";
+                echo "</tr>";
             }
-        ?>            
-        </ul>
+        ?>
+        </table>
         <a href="index.php?action=FormAjoutEquipe">Ajouter une équipe</a>
         <a href="index.php?action=Accueil">Retourner à l'accueil</a>
     </body>

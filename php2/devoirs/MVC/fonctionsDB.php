@@ -19,23 +19,15 @@
 
     function GetAllEquipes()
     {
-        global $connexion;
-        
         $requete = "SELECT id, nom, ville FROM equipe";
-        $resultat = mysqli_query($connexion, $requete);
-        
-        return $resultat;
+        return getSqlData($requete);
     }
 
     function GetAllJoueurs()
     {
-        global $connexion;
-        
         $requete = "SELECT joueur.id as idJoueur, prenom, joueur.nom AS nomJoueur, equipe.nom AS nomEquipe, ville 
         FROM equipe JOIN joueur ON joueur.idEquipe = equipe.id";
-        $resultat = mysqli_query($connexion, $requete);
-        
-        return $resultat;
+        return getSqlData($requete);
     }
 
     /*
@@ -46,12 +38,8 @@
     */
     function GetJoueursParEquipe($idEquipe)
     {
-        global $connexion;
-        
         $requete = "SELECT id, prenom, nom FROM joueur WHERE idEquipe = $idEquipe";
-        $resultat = mysqli_query($connexion, $requete);
-        
-        return $resultat;
+        return getSqlData($requete);
     }
 
     /*
@@ -67,12 +55,11 @@
         $requete = "SELECT nom, ville FROM equipe WHERE id = $id";
         $resultat = mysqli_query($connexion, $requete);
         
-        return $resultat;
+        return mysqli_fetch_assoc($resultat);
     }
 
 
     /*
-    *
     *   InsereEquipe
     *   Paramètres : Une chaine pour le nom, une chaine pour la ville
     */
@@ -86,13 +73,30 @@
         return $resultat;
     }
 
-    // Supprrimer un joueur
+    // Supprimer l'équipe
+    function SupprimerEquipe($idEquipe) {
+        $requete = "DELETE FROM equipe WHERE id = $idEquipe";
+        return getSqlData($requete);
+    }
+
+    // Supprrimer le joueur
     function SupprimeJoueur($idJoueur) {
-        global $connexion;
-
         $requete = "DELETE FROM joueur WHERE id = $idJoueur";
-        $resultat = mysqli_query($connexion, $requete);
+        return getSqlData($requete);
+    }
 
-        return $resultat;
+    function InsereJoueur($nom, $prenom, $idEquipe)
+    {
+        $requete = "INSERT INTO joueur(nom, prenom, idEquipe) VALUES('$nom', '$prenom', '$idEquipe')";
+        return getSqlData($requete);
+    }
+
+
+    // Obtenir le résultat d'une requête
+    function getSqlData($requete) {
+        global $connexion;
+        $resultat = mysqli_query($connexion, $requete);
+        // Retourner le resultat sous forme d'un tableau
+        return mysqli_fetch_all($resultat, MYSQLI_ASSOC);
     }
 ?>
