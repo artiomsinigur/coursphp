@@ -10,7 +10,7 @@ $email = $_POST['email'] ?? '';
 
 <?php
 // Pour la balise option
-$selected = $row["id"] == $_POST["value"] ? "selected" : "";
+$selected = ($row["id"] == $_POST["value"]) ? "selected" : "";
 $anOption = "<option value='" . $row["id"] . "' $selected>" . $text . "</option>";
 ?>
 
