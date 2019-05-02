@@ -82,12 +82,20 @@
             }
             break;
         case "supprimerEquipe":
-            $donnees = SupprimerEquipe($_GET["idEquipe"]);
-            header("Location:index.php?action=ListeEquipes");
+            if (isset($_GET["idEquipe"])) {
+                $donnees = SupprimerEquipe($_GET["idEquipe"]);
+                header("Location:index.php?action=ListeEquipes");
+            } else {
+                header("Location: vues/ListeEquipes.php");
+            }
             break;
         case "supprimerJoueur":
-            $donnees = SupprimeJoueur($_GET["idJoueur"]);
-            header("Location:index.php?action=ListeJoueurs");
+            if (isset($_GET["idJoueur"])) {
+                $donnees = SupprimeJoueur($_GET["idJoueur"]);
+                header("Location:index.php?action=ListeJoueurs");
+            } else {
+                header("Location: vues/ListeJoueurs.php");
+            }
             break;
         case "FormAjoutJoueur":
             $donnees = GetAllEquipes();
@@ -98,12 +106,12 @@
             $erreurs = "";
 
             foreach($required_fields as $field) {
-                if (empty(trim($_POST[$field])) ) {
+                if (empty(trim($_POST[$field]))) {
                     $erreurs = "Veuillez remplir les deux champs correctement.";
                     $donnees = GetAllEquipes();
                     require_once("vues/FormAjoutJoueur.php");
                     // header("Location: index.php?action=FormAjoutJoueur");
-                }                
+                }
             }
             if ($erreurs == "") {
                 InsereJoueur($_POST["nom"], $_POST["prenom"], $_POST["idEquipe"]);
@@ -111,8 +119,93 @@
                 // require_once("vues/ListeJoueurs.php");
                 header("Location: index.php?action=ListeJoueurs");
             }
+            break;
+        case "sortByColumn":
+            // Récuperer les données déjà ordonnées
+            if (isset($_GET["sort"])) {
+                // Supprimer les apostrophes
+                $strTrim = str_replace("'", "", $_GET["sort"]);
+                $donnees = sortByOrderDesc($strTrim);
+                require_once("vues/ListeEquipes.php");
+            } else {
+                header("Location: index.php?action=ListeEquipes");
+            }
+            break;
+        case "sortBy":
+            $donnees = GetAllEquipes();
+            //
+            // Méthode 2 avec array_multisort() ==================//
+            //
+            $sort = $_POST["sort"]; 
+            if (isset($sort)) {
+                if ($sort == 'nbVictoire') {
+                    array_multisort(array_column($donnees, $sort), SORT_DESC, $donnees);
+                    require_once("vues/ListeEquipes.php");
+                } else {
+                    array_multisort(array_column($donnees, $sort), SORT_ASC, $donnees);
+                    require_once("vues/ListeEquipes.php");
+                }
+            } else {
+                header("Location: index.php?action=ListeEquipes");
+            }
+
+            //
+            // Méthode 1 avec usort() ==================//
+            //
+            // 1. Trier par une colonne définis 
+                // En ordre décroisant
+            function orderAsc($a, $b) {
+                // return strcmp($a['ville'], $b['ville']);
+                return $a['nbVictoire'] < $b['nbVictoire'];
+            }
+                // En ordre croissant
+            function orderDesc($a, $b) {
+                return $a['nbVictoire'] > $b['nbVictoire'];
+            }
+            usort($donnees, 'orderAsc');
+            // var_dump($donnees);
+            break;
+
+
+            // function sortByArr($field, $array, $direction = 'asc') {
+            //     usort($array, create_function('$a, $b', '
+            //         $a = $a["' . $field . '"];
+            //         $b = $b["' . $field . '"];
+
+            //         if ($a == $b) return 0;
+            //         $direction = strtolower(trim($direction));
+            //         return ($a ' . ($direction == 'desc' ? '>' : '<') . ' $b) ? -1 : 1;
+            //     '));
+            //     return true;
+            // }
+        case "FormModifierJoueur":
+            $donneesJoueur = GetAllJoueurs();
+            $donneesEquipe = GetAllEquipes();
+            require_once("vues/FormModifierJoueur.php");
+            break;
+        case "SauvegarderJoueur":
+            $required_fields = ['nom', 'prenom', 'idEquipe'];
+            $erreurs = "";
+            
+            // Validation des champs
+            foreach($required_fields as $field) {
+                if (empty(trim($_POST[$field]))) {
+                    $erreurs = "Veuillez remplir les deux champs correctement.";
+                    $donneesEquipe = GetAllEquipes();
+                    require_once("vues/FormModifierJoueur.php");
+                }
+            }
+
+            // Modification de joueur
+            if ($erreurs == "") {
+                $donneesJoueur = updatePlayer($_POST["nom"], $_POST["prenom"], $_POST["idEquipe"], $_POST["idJoueur"]);
+                $donneesJoueur = GetAllJoueurs();
+                header("Location: index.php?action=ListeJoueurs");
+            }
+            break;
     }
-        var_dump($_POST);
+        var_dump($_POST, $_GET);
+        
     function afficheListeEquipes()
     {
         //afficher la liste des équipes
@@ -121,5 +214,4 @@
         //2. inclure la vue de la liste des équipes
         require_once("vues/ListeEquipes.php");
     }
-
 ?>

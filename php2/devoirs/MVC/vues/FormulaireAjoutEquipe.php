@@ -1,6 +1,4 @@
 <?php
-    // $nom = "";
-    // $ville = "";
     $nom = $_POST["nom"] ?? "";
     $ville = $_POST["ville"] ?? "";
 ?>
