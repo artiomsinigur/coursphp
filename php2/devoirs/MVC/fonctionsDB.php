@@ -109,9 +109,10 @@
     // TRIER LA TABLE ÉQUIPE
     // ====================//
     // Trier par nom, ville et nombre de victoires
-    function sortByOrderDesc($sortBy)
+    function sortByOrderDesc($sortBy, $order)
     {
-        $requete = "SELECT id, nom, ville, nbVictoire FROM equipe ORDER BY $sortBy DESC";
+        $order = ($order == "ASC") ? "ASC" : "DESC";
+        $requete = "SELECT id, nom, ville, nbVictoire FROM equipe ORDER BY $sortBy $order";
         return getSqlData($requete);
     }
 

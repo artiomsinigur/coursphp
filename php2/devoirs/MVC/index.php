@@ -124,8 +124,7 @@
             // Récuperer les données déjà ordonnées
             if (isset($_GET["sort"])) {
                 // Supprimer les apostrophes
-                $strTrim = str_replace("'", "", $_GET["sort"]);
-                $donnees = sortByOrderDesc($strTrim);
+                $donnees = sortByOrderDesc($_GET["sort"], 'ASC');
                 require_once("vues/ListeEquipes.php");
             } else {
                 header("Location: index.php?action=ListeEquipes");
@@ -156,7 +155,7 @@
                 // En ordre décroisant
             function orderAsc($a, $b) {
                 // return strcmp($a['ville'], $b['ville']);
-                return $a['nbVictoire'] < $b['nbVictoire'];
+                return $a['nbVictoire'] > $b['nbVictoire'];
             }
                 // En ordre croissant
             function orderDesc($a, $b) {
@@ -192,6 +191,7 @@
                 if (empty(trim($_POST[$field]))) {
                     $erreurs = "Veuillez remplir les deux champs correctement.";
                     $donneesEquipe = GetAllEquipes();
+                    $donneesJoueur = GetAllJoueurs();
                     require_once("vues/FormModifierJoueur.php");
                 }
             }

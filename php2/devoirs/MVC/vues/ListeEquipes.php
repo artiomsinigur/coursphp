@@ -11,9 +11,9 @@
         <ul>
         <table>
             <tr>
-                <th><a href="index.php?action=sortByColumn&sort='nom'">Nom équipe</a></th>
-                <th><a href="index.php?action=sortByColumn&sort='ville'">Ville</a></th>
-                <th><a href="index.php?action=sortByColumn&sort='nbVictoire'">Nb. Victoires</th>
+                <th><a href="index.php?action=sortByColumn&sort=nom">Nom équipe</a></th>
+                <th><a href="index.php?action=sortByColumn&sort=ville">Ville</a></th>
+                <th><a href="index.php?action=sortByColumn&sort=nbVictoire">Nb. Victoires</th>
                 <th>Trier par:
                 <form action="index.php" method="POST">
                     <select name="sort">
