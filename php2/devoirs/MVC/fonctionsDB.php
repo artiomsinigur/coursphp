@@ -66,9 +66,14 @@
     // =====================//
     function GetAllJoueurs()
     {
+        global $connexion;
+     
         $requete = "SELECT joueur.id as idJoueur, prenom, joueur.nom AS nomJoueur, equipe.nom AS nomEquipe, ville 
         FROM equipe JOIN joueur ON joueur.idEquipe = equipe.id";
-        return getSqlData($requete);
+        
+        $resultat = mysqli_query($connexion, $requete);
+
+        return $resultat;
     }
 
     /*

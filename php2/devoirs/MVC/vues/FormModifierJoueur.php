@@ -1,7 +1,7 @@
 <?php
     $nom = $_POST["nom"] ?? "";
     $prenom = $_POST["prenom"] ?? "";
-    // $idJoueur = $_GET["idJoueur"] ?? "";
+    $idJoueur = $_GET["idJoueur"] ?? "";
     $idEquipe = $_POST["idEquipe"] ?? "";
 ?>
 <html>
@@ -26,11 +26,9 @@
                     <td><input type="text" name="prenom" value="<?=$prenom?>"></td>
                 </tr>
                 <tr>
-                <?php foreach ($donneesJoueur as $row):?>
-                    <td><input type="hidden" name="idJoueur" value="<?=$row["idJoueur"]?>"></td>
+                    <td><input type="hidden" name="idJoueur" value="<?=$idJoueur?>"></td>
                     <!-- <th>Équipe actuelle :</th> -->
                     <!-- Essayer d'afficher l'équipe actuelle -->
-                <?php endforeach;?>
                 </tr>
                 <tr>
                 <th>Équipe :</th>

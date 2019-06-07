@@ -29,7 +29,7 @@ $error_class = isset($errors['Login']) ? 'form-input-error' : '';
 
 <?php
 // Validation de form ================//
-$required_fields = ['email', 'password', 'login'];
+$required_fields = ['email', 'login', 'password'];
 $errors = [];
 
 foreach ($required_fields as $field) {
@@ -37,6 +37,11 @@ foreach ($required_fields as $field) {
     $errors[$field] = 'Le champ est vide';
   }
 }
+
+// ou pour afficer le message à chaque champ
+
+if (empty(trim($_POST['title']))) array_push($errors, 'Entrez le titre');
+if (empty(trim($_POST['text']))) array_push($errors, 'Entrez le texte');
 
 if (count($errors)) {
   // Visualisé les erreurs de la validation

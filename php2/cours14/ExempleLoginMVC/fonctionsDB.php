@@ -27,7 +27,7 @@
     
         if($rangee = mysqli_fetch_assoc($resultat))
         {
-            if(password_verify($pass, $rangee["password"]))                
+            if(password_verify($pass, $rangee["password"]))       
                 return true;
             else
                 return false;
