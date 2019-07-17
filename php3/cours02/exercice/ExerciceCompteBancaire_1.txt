@@ -1,0 +1,13 @@
+Faites une classe CompteBancaire qui comporte comme attributs :
+
+- Un numéro de compte avec getter et setter validé
+- Un nom d'usager avec getter et setter validé
+- Un solde initialisé à zéro qui ne peut pas être modifié par d'autre méthode que retirer et déposer (il n'a pas de setter).
+
+Et comme méthodes :
+
+- afficherCompte() qui affiche le numéro de compte, le nom d'usager et le solde
+- retirer($montant) qui retire le montant envoyé en paramètres du solde contenu dans le compte
+- deposer($montant) qui dépose le montant envoyé en paramètres dans le solde contenu dans le compte
+
+Pour tester... créer deux comptes, afficher leurs soldes, transférer 500$ d'un compte à l'autre et afficher leurs soldes de nouveau!

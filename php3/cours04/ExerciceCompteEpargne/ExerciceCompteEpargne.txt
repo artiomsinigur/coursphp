@@ -1,0 +1,8 @@
+
+Exercice :
+    a) Ajouter une classe CompteEpargne qui hérite de CompteBancaire
+    b) Donner lui une méthode supplémentaire permettant de calculer de l'intérêt
+    avec un pourcentage spécifié en paramètre et qui ajoute cet intérêt au solde du compte.
+    c) Tester cette nouvelle classe et s'assurer que le tout fonctionne comme avant.
+    d) Ajouter un attribut de classe permettant de compter le nombre de comptes épargnes.
+    e) Ajouter une méthode statique permettant de calculer le pourcentage de comptes épargnes créés par rapport à tous les comptes créés.
