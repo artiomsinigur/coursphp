@@ -14,6 +14,16 @@ $selected = ($row["id"] == $_POST["value"]) ? "selected" : "";
 $anOption = "<option value='" . $row["id"] . "' $selected>" . $text . "</option>";
 ?>
 
+<!-- Pour le checkbox -->
+<?php foreach ($nameArray as $row):?>
+    <?php $checked = isset($_POST['titre']) == $row['titre']  ? 'checked' : ''?> 
+    <input type="checkbox" 
+        name="skill[]" 
+        id="field-check<?=$row['id']?>" 
+        value="<?=$row['titre']?>" $checked>
+    <label for="field-check<?=$row['id']?>"><?=$row['titre']?></label>
+<?php endforeach;?>
+
 <!-- Ou -->
 <?php if (isset($_POST['category'])): ?>
   <?php echo ($key == $_POST['category'] ? 'selected' : '')?>

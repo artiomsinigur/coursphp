@@ -169,8 +169,8 @@ WHERE j.idEquipe = e.id
 -- équivalent avec la syntaxe WHERE ci-dessus
 SELECT  joueur.nom AS nomJoueur, 
         equipe.nom AS nomEquipe
-FROM joueur JOIN equipe
-ON joueur.idEquipe = equipe.id
+FROM joueur 
+JOIN equipe ON joueur.idEquipe = equipe.id
 WHERE equipe.ville = "Montreal"
 
 -- Le jointure externe, elle va ramener aussi les rangées d’une des tables
@@ -183,7 +183,8 @@ JOIN Bureau ON Departement.IDBureau = Bureau.ID
 -- Reqêtes avec OUTER JOIN | LEFT OUTER JOIN | RIGHT OUTER JOIN
 SELECT  joueur.nom AS nomJoueur, 
         equipe.nom AS nomEquipe
-FROM joueur LEFT OUTER JOIN equipe -- retourne les joueurs sans equipe 
+FROM joueur 
+LEFT OUTER JOIN equipe -- retourne les joueurs sans equipe 
 ON joueur.idEquipe = equipe.id
 
 -- Requêtes sur une table avec une relation récursive
