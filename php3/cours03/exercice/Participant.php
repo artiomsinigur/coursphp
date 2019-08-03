@@ -32,14 +32,12 @@
 
         public function calculeMoyennePoints() {
             // qui calcule la moyenne des points des joueurs compris dans ce pool
-            // $moyennePoints = ($tousPoints + $tousPoints) / $nbJoueurs;
-            foreach ($joueurs as $j) {
+            foreach ($this->$joueurs as $j) {
                 $pointsParJoueur += $j->calculePoints();
                 $nbJoueurs++;
             }
             return $pointsParJoueur / $nbJoueurs;
         }
-
     }
 
 

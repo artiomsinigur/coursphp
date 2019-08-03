@@ -1,0 +1,12 @@
+Vous devez faire un prototype de système de calcul de paie pour les employés d’une entreprise.
+
+L'entreprise comporte des téléphonistes qui sont payés à l'heure, des vendeurs qui sont payés à l'heure ET à commission, et des superviseurs, qui ont un salaire annuel fixe. 
+
+La structure que vous allez créer sera remplie avec les informations suivantes pour chaque employé : un nom et un prénom. De plus, les téléphonistes ont un salaire horaire et des heures, les vendeurs ont la même chose mais ont aussi un taux de commission et un total de ventes en dollars. 
+Les superviseurs n'ont qu'un salaire annuel fixe.
+
+Vous devez tout d'abord faire la conception de votre structure, mais cette dernière doit impérativement contenir une classe Paie qui contient un tableau contenant tous les employés de l'entreprise et une méthode calculePaie qui calcule la paie pour la semaine.
+
+Ensuite, en vous servant de l'exemple de la ToDoList vu en classe, je vous demande de concevoir une interface simple permettant de gérer le contenu de la structure, c'est à dire d'ajouter dans la Paie courante (stockée dans une variable session) des téléphonistes, des vendeurs et des superviseurs. Après l'avoir rempli, il sera possible via l'interface de faire appel à la méthode calculePaie pour savoir le total que l'on doit payer à nos employés pour la semaine.
+
+Vous devez utiliser les concepts appris en classe, soit les classes abstraites, les méthodes abstraites, l'encapsulation, l'héritage et le polymorphisme. Vous serez corrigés selon l'utilisation que vous avez fait de ces concepts et pour la qualité de votre implémentation.
