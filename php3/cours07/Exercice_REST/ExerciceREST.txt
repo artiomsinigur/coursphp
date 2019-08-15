@@ -1,0 +1,10 @@
+Première partie : Le CRUD
+
+a) Ajouter la mise à jour dans la classe TableArticle.
+b) En se basant sur TableArticle, créer la classe TableAuteur, qui permet toutes les opérations sur la table auteur.
+c) Tester TableArticle et TableAuteur après ces modifications.
+
+Deuxième partie : L'API REST
+
+a) Ajouter la modification (PUT) et la suppression (DELETE) dans l'API REST article.
+b) Faire l'API REST pour la gestion des auteurs, en vous basant sur l'API REST article. Il vous faudra aussi créer la classe Auteur pour que le tout fonctionne.

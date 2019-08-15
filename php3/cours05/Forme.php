@@ -13,7 +13,7 @@
         abstract function getAire();
         abstract function getPerimetre();
         
-        //il est possible de définir un comportement général qui se base sur le retour des méthodes abstraites (qui ne sont pas encore définies mais qui le seront NÉCESSAIREMENT dans els classes qui en héritent)
+        //il est possible de définir un comportement général qui se base sur le retour des méthodes abstraites (qui ne sont pas encore définies mais qui le seront NÉCESSAIREMENT dans les classes qui en héritent)
         public function getDescription()
         {
             return "La forme a une aire de " . $this->getAire() . " et un périmètre de " . $this->getPerimetre() . ".";

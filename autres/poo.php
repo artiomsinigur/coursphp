@@ -52,7 +52,9 @@
 // STATIC =================//
     // Pour ne pas créer une instance d'un class juste pour afficher
     // des données simple, il est possible d'appliquer le mots clé STATIC à la méthode
-    // Maintenant on peut appeler la méthode directement sans créer une instance
+    // Maintenant on peut appeler la méthode directement sans créer une 
+    // Comme elles n’ont aucun lien avec une instance, il est impossible 
+    // d’utiliser $this au sein d’une méthode de classe!
     // NameClass::Method
     private static function formateChiffre($chiffre) {
         if ($chiffre < 10) {
@@ -76,6 +78,104 @@
     public static function publicFormateChiffre($chiffre) {
         return self::FormateChiffre($chiffre);
     }
+
+    // Injection de dépendances(type hinting) ===================//
+        • Il est possible pour un attribut d’une classe d’être aussi un objet!
+        • Par exemple, la classe Livre pourrait contenir un attribut Auteur qui
+        serait de la classe Auteur!
+            • Cela consiste à envoyer au constructeur de la classe conteneur
+            une instance de la classe contenue.
+            • On peut d’ailleurs renforcer ce comportement avec le type
+            hinting, qui permet de forcer une fonction/méthode à recevoir un
+            paramètre d’un certain type.
+        
+        // Exemple:
+        public function transfertVers(CompteBancaire $compte, $montant)
+        {
+            $this->retire($montant);
+            $compte->depose($montant);
+            
+            //façon alternative de vérifier la classe de $compte
+            // if($compte instanceof CompteBancaire)
+            // {
+            //     $this->retire($montant);
+            //     $compte->depose($montant);
+            // }
+            // else
+            //     trigger_error("Le paramètre doit être un objet de type CompteBancaire.", E_USER_ERROR);       
+        }
+
+        Exemple - vérifier un tableau
+        public function setEmployes(array $arrEmployes) {
+            foreach ($arrEmployes as $employe) {
+                if (!($employe instanceof Employe)) {
+                    trigger_error('Le tableau en paramétre ne doit contenir que des employes', E_USER_NOTICE);
+                }
+            }
+            $this->employes = $arrEmployes;
+        }
+
+
+    // Encapsulation et héritage ===================//
+        - Attribut private que nous utilisons pour l’encapsulation restreint 
+        l’utilisation des attributs et des méthodes à la classe qui les a défini.
+        - Cela veut dire qu’un attribut private de la classe A
+        n’est pas accessible par la classe B, bien qu’un objet
+        appartenant à cette classe B possède bel et bien cet
+        attribut.
+
+    // Encapsulation : Le mot clé protected ==================//
+        • Il sera toujours possible pour les méthodes de la classe B
+        d’accéder aux méthodes public de la classe A, et donc
+        aux setters de cette classe pour changer les attributs
+        qui sont private.
+        • Dans plusieurs cas, toutefois, nous voudrons qu’un
+        attribut défini dans la classe A puisse être accessible
+        directement par les classes qui en héritent.
+            – Dans ce cas, plutôt que d’utiliser l’attribut private, nous
+            utiliserons l’attribut protected.
+            – En utilisant protected, on obtient la même encapsulation, à
+            l’extérieur de la classe A, qu’en utilisant private. Toutefois,
+            cette encapsulation sera enlevée pour les classes qui
+            héritent de la classe A.
+
+    // Redéfinir des méthodes déjà présentes dans la classe mere ===================//
+        • Il suffit de redéfinir la même méthode, avec le même nom
+        dans la classe fille que celui de la méthode présente dans la
+        classe mère.
+        • Cette méthode sera dorénavant appelée à la place de celle
+        de la classe mère.
+        • Il est aussi possible d’appeler une méthode de la classe mère
+        à partir d’une classe fille même si cette classe fille possède
+        une méthode possédant le même nom.
+            Ex: parent::methode(); (l’opérateur de résolution de portée)
+
+    // Méthodes et classes finales ====================//
+        • Il est possible d’empêcher une méthode d’être 
+        surchargée en mettant le mot clé final devant.
+        • Il est aussi possible d’empêcher une classe d’être héritée 
+        en mettant le même mot clé devant le mot class lors de sa définition.
+
+    // Polymorphisme(abstraite) =================//
+        Le polymorphisme consiste à créer une collection
+        d’objets, elle-même typée à une classe de base (qui
+        pourrait être abstraite) et à remplir cette collection
+        d’objets qui appartiennent à une ou plusieurs classes
+        héritant de cette même classe de base.
+
+    // Classes et méthodes abstraites =================//
+        • Pour forcer tous les objets à redéfinir une méthode d’une classe,
+        il est préférable d’utiliser le concept de classe abstraite.
+        • IMPORTANT : Une classe abstraite ne peut pas être instanciée.
+        • Elle ne sert donc qu’à être un patron pour de futures classes
+        qui hériteront de ses attributs et méthodes.
+        • Elle est généralement accompagnée de méthodes abstraites.
+        • Lorsque cette méthode est définie au sein d’une classe
+        abstraite, cela force les classes qui hériteront de celle-ci à la
+        redéfinir (surcharger).
+        • N.B. Une classe qui a une méthode abstraite doit absolument être
+        abstraite!
+
 */
 
 // ======================
@@ -197,5 +297,78 @@ class Archer extends Personnage {
         // ou on peut appeler la function attaquer() parente
         // pour avoir le meme resultat.
         parent::attaquer($cible);
+    }
+
+    // 1 ======================//
+    function __construct( $nom, $prix, $fabricant, $description) {
+        //ne pas faire l’affectation directement parce que cela
+        //briserait le concept d’encapsulation
+        //$this->nom = $nom …. Aucune validation!
+        $this->setNom($nom);
+        $this->setPrix($prix);
+        $this->setFabricant($fabricant);
+        $this->setDescription($description);
+        }
+
+    // 2 =======================//
+    // Quand on utiliser une méthode du parent, 
+    // il doit avoir les même paramétres et nom que celui du parent
+
+    // 3 =========================//
+    // Utilisation de Type Hinting 
+    public function transfertVers(CompteBancaire $compte, $montant)
+    {
+        $this->retire($montant);
+        $compte->depose($montant);
+        
+        //façon alternative de vérifier la classe de $compte
+        /*if($compte instanceof CompteBancaire)
+        {
+            $this->retire($montant);
+            $compte->depose($montant);
+        }
+        else
+            trigger_error("Le paramètre doit être un objet de type CompteBancaire.", E_USER_ERROR);     
+        */    
+    }
+
+    // Recevoir un tableau
+        // class Equipe {
+            private $joueurs = [];
+            // ...
+        // 1 Recevoir le tableau en paramétre.
+        public function setJoueurs(array $arrJoueurs) {
+            // 2 Vérifier si'il est bien instancier.
+            foreach ($arrJoueurs as $j) {
+                if (!($j instanceof Sportif)) {
+                    throw new Exception("Le tableau en paramétre doit être une instance de Sportif", 1);
+                }
+            }
+            // 3 Puis, l'ajouter à la variable.
+            $this->joueurs = $arrJoueurs;
+        }
+
+    // 4 =======================//
+    //Déconseillé d'accéder à une méthode de classe (statique) via une instance
+    //echo $compte2->getCompteur();
+    //la bonne façon : à partir de la classe et de l'opérateur de résolution de portée
+    // echo CompteBancaire::getCompteur() . "<br>";
+
+    // class CompteBancaire{
+        //attribut statique - compteur accessible sans création d'instance
+        protected static $compteur = 0;
+        // ...
+        public function __construct($numC, $nom)
+        {
+            //pour respecter l'encapsulation, on appelle les setters qui possèdent la logique de validation
+            $this->setNomUsager($nom);
+            $this->setNumeroCompte($numC);
+            self::$compteur++;
+        }
+
+        public static function getCompteur()
+        {
+            return self::$compteur;
+        }
     }
 }

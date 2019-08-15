@@ -49,6 +49,7 @@
         <h1>Affichage de la liste la plus prioritaire</h1>
         <?php
             echo "La tâche la plus prioritaire de votre liste est : " . $maListe->plusPrioritaire()->getNom();
+        var_dump($_SESSION['todo']);
         ?>
     </body>
 </html>

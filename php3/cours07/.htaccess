@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^foo.html$ test.html [L]
+RewriteRule ^article/([^\.]+) ./rest_article.php?id=$1
+RewriteRule ^article ./rest_article.php
