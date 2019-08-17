@@ -1,4 +1,6 @@
 <?php
+    namespace Artiom;
+    
     class Telephoniste extends Employe {
          // abstract extends Employe
          //     nom

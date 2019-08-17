@@ -1,4 +1,6 @@
 <?php
+    namespace Artiom;
+
     abstract class Employe {
         // ajouter des attributes dans la class abstrait et creer un constructeur qui recevra les attributs
         // utiliser le constructeur de la class abstrait dans les class herite 

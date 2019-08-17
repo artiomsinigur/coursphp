@@ -1,20 +1,24 @@
 <?php
+    use \Artiom\Autoloader;
+    use \Artiom\Telephoniste;
+
     // require_once('Employe.php');
     // require_once('Telephoniste.php');
     // require_once('Vendeur.php');
     // require_once('Superviseur.php');
     // require_once('Paie.php');
-    session_start();
 
     // Méthod 1 - pas de class
-    function __autoload($class_name) {
-        require_once "class/" . $class_name . ".php";
-    }
+    // function __autoload($class_name) {
+    //     require_once "class/" . $class_name . ".php";
+    // }
 
     // Méthod 2 avec class
     // Appeler la function autolod de la class Autoloader
-    // require_once('class/Autoloader.php');
-    // Autoloader::register(); 
+    require_once('class/Autoloader.php');
+    Autoloader::register();
+
+    session_start();
 
     $errors = '';
     if (!isset($_SESSION['paie'])) {
