@@ -19,12 +19,14 @@
 
         // Lorsque on veut le PDO on appelera ce getter getPDO()
         private function getPDO() {
+            //pour l'encodage utf8
+            $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
             // Le problem c'est que si on fait 10 requêtes(appeller getPDO()), 
             // ça initiera 10 conextion à la BD
             // Pour rémedier ça on fait comme suit
             if ($this->pdo === null) {
                 try {
-                    $pdo = new PDO('mysql:dbname=blog_test;host:localhost', 'root', '');
+                    $pdo = new PDO('mysql:dbname=blog_test;host:localhost', 'root', '', $options);
                 } catch (PDOException $e) {
                     throw new Exception('Erreur de connection à la BD...' . $e->getMessage());
                     // trigger_error('Erreur de connection à la BD...' . $e->getMessage());
