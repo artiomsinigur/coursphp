@@ -376,16 +376,56 @@ class Archer extends Personnage {
     // =========================//
     // PDO
     // =========================//
-    // PDO::exec() ne retourne pas de résultat pour une requête SELECT. Pour une requête SELECT dont vous auriez besoin une seule fois dans le programme, utilisez plutôt la fonction PDO::query(). Pour une requête dont vous auriez besoin plusieurs fois, préparez un objet PDOStatement avec la fonction PDO::prepare() et exécutez la requête avec la fonction PDOStatement::execute().
+    // - PDO::exec() ne retourne pas de résultat pour une requête SELECT. 
+    // - Pour une requête SELECT dont vous auriez besoin une seule fois dans le programme, utilisez plutôt la fonction PDO::query(). 
+        Ex 1: $sql = "SELECT * FROM users";
+        foreach ($dbPDO->query($sql) as $row)
+        {
+        print $row['prenom'] .' - '. $row['nom'] . '<br />';
+        }
 
-    // La classe PDO
+        Ex 2: while($r = $res->fetch(PDO::FETCH_OBJ)) {
+            echo "<table>";
+                echo "<tr><td>" . $r->titre . "</tr></td>";
+                echo "<tr><td>" . $r->texte . "</tr></td>";
+            echo "</table>";
+            echo "<br>";
+        }
+    // - Pour une requête dont vous auriez besoin plusieurs fois, préparez un objet PDOStatement avec la fonction PDO::prepare() et exécutez la requête avec la fonction PDOStatement::execute().
+
+    // Les requêtes qui ne retournent pas de données provenant de la base s’effectuent 
+    // avec la méthode exec() de l’objet PDO.
+    // On utilise aussi exec() avec les requêtes UPDATE et DELETE.
+
+    // – Appeler PDO::prepare() et PDOStatement::execute() pour les requêtes qui doivent être exécutées plusieurs fois avec différentes valeurs de paramètres optimisent les performances de votre application en autorisant le pilote à négocier coté client et/ou serveur avec le cache des requêtes et les metainformations
+    // - De plus, aide à prévenir les attaques par injection SQL en éliminant le besoin de protéger les paramètres manuellement.
+
+    // Attaque par injection SQL ===================//
+    /*
+    Par exemple :
+        – $res = mysql_query("SELECT * FROM users WHERE username = '".
+        $_POST['username']."' AND password = '".$_POST['password']."'");
+        if(mysql_num_rows($res) > 0)
+        {
+        // usager est authentifié..
+        }
+        – Qu’est-ce qui se passe lorsque $_POST[‘password’] = « youarehacked' OR 1=1».
+        – On peut se retrouver avec la requête SELECT * FROM users WHERE username = '".
+        $_POST['username']."' AND password = ‘youarehacked' OR 1=1" , ce qui
+        retournerait toutes les entrées de la base…
+    • On empêche ce problème lorsque l’on utilise les prepared
+    statements de PDO, ou encore en utilisant
+    mysql_real_escape_string() avec chacun des paramètres à entrer…
+    */
+
+    // La classe PDO ===================//
         // 1.0 PDO::__construct — Crée une instance PDO qui représente une connexion à la base
         // 1.1 PDO::exec — Exécute une requête SQL et retourne le nombre de lignes affectées
         // 1.2 PDO::lastInsertId — Retourne l'identifiant de la dernière ligne insérée ou la valeur d'une séquence
         // 1.3 PDO::prepare — Prépare une requête à l'exécution et retourne un objet
         // 1.4 PDO::query — Exécute une requête SQL, retourne un jeu de résultats en tant qu'objet PDOStatement
 
-    // DOStatement
+    // DOStatement =====================//
         // 2.0 PDOStatement::bindParam — Lie un paramètre à un nom de variable spécifique
         // 2.1 PDOStatement::columnCount — Retourne le nombre de colonnes dans le jeu de résultats
         // 2.2 PDOStatement::execute — Exécute une requête préparée
@@ -393,7 +433,32 @@ class Archer extends Personnage {
         // 2.4 PDOStatement::fetchAll — Retourne un tableau contenant toutes les lignes du jeu d'enregistrements
         // 2.5 PDOStatement::rowCount — Retourne le nombre de lignes affectées par le dernier appel à la fonction PDOStatement::execute()
 
+    // Les prepared statements de PDO =======================//
+    /*
+    • On spécifie à PDO l’emplacement des paramètres dans une requête SQL avec 
+    l’opérateur : situé avant le nom du paramètre.
+        – Il est aussi possible de ne pas nommer les paramètres et de spécifier 
+    seulement leurs emplacements avec des ?.
+    • On appelle ensuite la fonction prepare() de l’objet PDO en lui passant en paramètres la requête SQL paramétrée à préparer. Cet appel nous retourne un objet de type
+    PDOStatement, que l’on utilisera par la suite.
+        – $stmt = $dbh->prepare("SELECT * FROM users WHERE prenom = :prenomUser");
+    • On poursuit en utilisant la fonction bindParam() de l’objet PDOStatement, qui lie une
+    VARIABLE à un paramètre dans cette requête. Notez ici que l’on ne parle pas d’attribuer
+    une valeur au paramètre, mais bien de le lier à une variable.
+        – $stmt->bindParam(':prenomUser', $prenomVariable,PDO::PARAM_STR, 12);
+        – Où 12 est la longueur du champ prenom…
+    */
 
+    // Traitement des erreurs avec PDO ==================//
+    // Si l’on veut que les erreurs générées par les requêtes SQL génèrent des exceptions 
+    // (plutôt que de soulever des warnings, ou de retourner FALSE), il est possible de 
+    // spécifier à PDO de générer des exceptions.
+    – $dbPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 
+    //génère une exception
+    – $dbPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+    //génère un warning
+    – $dbPDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT); 
+    // reste silencieux
     
     
     // 6 ========================// 
@@ -432,6 +497,11 @@ class Archer extends Personnage {
 
     // 5 ========================// 
     // Exemple de CRUD
+    // CRUD est une abréviation signifiant :
+    //     • Create
+    //     • Read
+    //     • Update
+    //     • Delete
     
     /**
     * Obtenir toutes les éléments dans une requête
