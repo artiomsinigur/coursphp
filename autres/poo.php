@@ -391,6 +391,8 @@ class Archer extends Personnage {
         // 2.2 PDOStatement::execute — Exécute une requête préparée
         // 2.3 PDOStatement::fetch — Récupère la ligne suivante d'un jeu de résultats PDO
         // 2.4 PDOStatement::fetchAll — Retourne un tableau contenant toutes les lignes du jeu d'enregistrements
+        // 2.5 PDOStatement::rowCount — Retourne le nombre de lignes affectées par le dernier appel à la fonction PDOStatement::execute()
+
 
     
     
