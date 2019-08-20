@@ -52,7 +52,7 @@
 // STATIC =================//
     // Pour ne pas créer une instance d'un class juste pour afficher
     // des données simple, il est possible d'appliquer le mots clé STATIC à la méthode
-    // Maintenant on peut appeler la méthode directement sans créer une 
+    // Maintenant on peut appeler la méthode directement sans créer une instance.
     // Comme elles n’ont aucun lien avec une instance, il est impossible 
     // d’utiliser $this au sein d’une méthode de classe!
     // NameClass::Method
@@ -372,6 +372,28 @@ class Archer extends Personnage {
         }
     }
 
+    
+    // =========================//
+    // PDO
+    // =========================//
+    // PDO::exec() ne retourne pas de résultat pour une requête SELECT. Pour une requête SELECT dont vous auriez besoin une seule fois dans le programme, utilisez plutôt la fonction PDO::query(). Pour une requête dont vous auriez besoin plusieurs fois, préparez un objet PDOStatement avec la fonction PDO::prepare() et exécutez la requête avec la fonction PDOStatement::execute().
+
+    // La classe PDO
+        // 1.0 PDO::__construct — Crée une instance PDO qui représente une connexion à la base
+        // 1.1 PDO::exec — Exécute une requête SQL et retourne le nombre de lignes affectées
+        // 1.2 PDO::lastInsertId — Retourne l'identifiant de la dernière ligne insérée ou la valeur d'une séquence
+        // 1.3 PDO::prepare — Prépare une requête à l'exécution et retourne un objet
+        // 1.4 PDO::query — Exécute une requête SQL, retourne un jeu de résultats en tant qu'objet PDOStatement
+
+    // DOStatement
+        // 2.0 PDOStatement::bindParam — Lie un paramètre à un nom de variable spécifique
+        // 2.1 PDOStatement::columnCount — Retourne le nombre de colonnes dans le jeu de résultats
+        // 2.2 PDOStatement::execute — Exécute une requête préparée
+        // 2.3 PDOStatement::fetch — Récupère la ligne suivante d'un jeu de résultats PDO
+        // 2.4 PDOStatement::fetchAll — Retourne un tableau contenant toutes les lignes du jeu d'enregistrements
+
+    
+    
     // 6 ========================// 
     // Connexion à la base de donnée
     namespace App;
