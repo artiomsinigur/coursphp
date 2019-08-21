@@ -18,6 +18,7 @@
     switch($_SERVER["REQUEST_METHOD"])
     {
         case "GET":
+            // Lire/Obtenir un article par id
             if(isset($_GET["id"]))
             {
                 //une seule ressource
@@ -48,6 +49,7 @@
             }
             break;
         case "POST":
+            // Créer/Ajouter un article
             //obtenir le corps de la requête
             $data = file_get_contents("php://input");
             $article = json_decode($data);
@@ -59,10 +61,17 @@
                 
                 if($ajout)
                 {
+                    // Afficher le message dans REST
+                    echo json_encode(
+                        array('message' => 'Article créé!')
+                    );
                     http_response_code(201);
                 }
                 else
                 {
+                    echo json_encode(
+                        array('message' => 'Opération échouée!')
+                    );
                     //l'insertion n'a pas fonctionné - une clé étrangère n'a pas été respectée ou une clé primaire est un doublon
                     http_response_code(409);
                 }
@@ -74,8 +83,68 @@
             }
             break;
         case "PUT":
-            
+            // Modifier un article
+            // Obtenir le corps de la requête
+            $data = file_get_contents("php://input");
+            $article = json_decode($data);
+
+            // Vérifier si l'article à les bonnes paramètres
+            if (isset($article->id, $article->titre, $article->texte)) {
+                // Modifier l'article
+                $modifArticle = $article->update($article->id, $article->titre, $article->texte);
+
+                if($modifArticle){
+                    // Afficher le message dans REST
+                    echo json_encode(
+                        array('message' => 'Article mis à jour!')
+                    );
+                    http_response_code(201);
+                } else {
+                    echo json_encode(
+                        array('message' => 'Opération échouée!')
+                    );
+                    //l'insertion n'a pas fonctionné - une clé étrangère n'a pas été respectée ou une clé primaire est un doublon
+                    http_response_code(409);
+                }
+            } else {
+                http_response_code(400);
+            }
             break;
         case "DELETE":
+            // Supprimer un article
+            /*
+            if (isset($_GET['id'])) {
+                $article = $dbArticle->supprimer($_GET['id']);
+                if ($article) {
+                    echo json_encode(
+                        array('message' => 'Article supprimé!')
+                    );
+                    http_response_code(201);
+                } else {
+                    echo json_encode(
+                        array('message' => 'Opération échouée!')
+                    );
+                    http_response_code(409);
+                }
+            } else {
+                http_response_code(400);
+            }
+            */
+
+            $article = $dbArticle->supprimer($_GET['id']);
+            
+            if ($article) {
+                echo json_encode(
+                    array('message' => 'Article supprimé!')
+                );
+                http_response_code(201);
+            } else {
+                echo json_encode(
+                    array('message' => 'Opération échouée!')
+                );
+                http_response_code(409);
+            }
+
+            break;
     }
 ?>

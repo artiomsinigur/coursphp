@@ -87,3 +87,10 @@
     // • La suppression s’effectue avec une requête de type DELETE vers la ressource que l’on veut supprimer, suivi de l’ID de l’item.
         // • Ex : monsite.com/articles/9
     // • La réponse devrait retourner un code 204 NO CONTENT si l’item a été trouvé et supprimé, et un code 404 si l’item n’a pas été trouvé.
+
+    $arrRes = $res->fetchAll(PDO::FETCH_ASSOC);
+
+    $resJson = json_encode($arrRes);
+    var_dump($resJson);
+    $resdArr = json_decode($resJson);
+    var_dump($resdArr);

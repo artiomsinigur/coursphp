@@ -18,14 +18,14 @@
     }
 
     echo "<h2> Ajouter un article </h2>";
-    // $res = $bdArticle->ajouter('Test', 'article', 'Artiom');
+    // $res = $bdArticle->ajouter('Test2', 'Du texte...', 'powermen');
 
     echo "<h2> Modifier cet article </h2>";
-    // $res = $bdArticle->update(5, 'change', 'moi aussi', 'Artiom');
+    // $res = $bdArticle->update(5, 'change', 'moi aussi');
     
     echo "<h2> Supprimer un article </h2>";
     // $res = $bdArticle->supprimer(14);
-    var_dump($res);
+    // var_dump($res);
 
 
     // Instancier la classe TableAuteur 
